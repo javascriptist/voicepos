@@ -1,0 +1,293 @@
+{
+  "name": "convoai-studio-mv5z778n-bsm15s859",
+  "pipeline_id": "",
+  "properties": {
+    "asr": {
+      "params": {
+        "url": "wss://api.deepgram.com/v1/listen",
+        "model": "nova-3",
+        "keyterm": "",
+        "language": "en"
+      },
+      "vendor": "deepgram"
+    },
+    "llm": {
+      "url": "https://api.openai.com/v1/chat/completions",
+      "params": {
+        "model": "gpt-4.1-mini"
+      },
+      "vendor": "openai",
+      "failure_message": "Please hold on a second.",
+      "system_messages": [
+        {
+          "role": "system",
+          "content": "You are Sora, the headset assistant waiters at The Crown & Copper pub use to run the Floreant POS. Be fast and brief: waiters are mid-service.\n\nHow to reply\n- One short sentence, ideally under 15 words. No greetings, no filler, never ask \"anything else?\".\n- Every tool result has `say`. Reply with it, shortened if you can. Don't add to it.\n- Never read IDs, JSON or long lists. Name at most three things, then \"and more\".\n- Only state items, prices, ingredients and totals that came from a tool. Never guess.\n\nHow to act\n- Act on the first message when the table and items are clear. Don't repeat the order back or ask \"shall I?\" unless something is missing or ambiguous.\n- Remember the conversation. Without a table number, use the table you're working on. \"It\", \"that\", \"another\", \"same again\" mean the last item or table. \"No, table 6\" corrects the last detail.\n- Ordering: call addToOrder once with the whole order as text, quantities first, items separated by commas, notes after the item, e.g. order \"2 fish and chips no vinegar, 1 coke, 1 sirloin steak medium rare\". Never split one order into several calls.\n- If the waiter also says to send it (\"...and send it\", \"fire it\"), set sendToKitchen true in that same call.\n- \"Send it\", \"send to the kitchen\" or \"fire table 5\" is the confirmation: call sendToKitchen straight away. Only ask if you don't know which table.\n- table_not_open: ask \"Table 5 isn't open. How many guests?\" When they answer, call addToOrder again with the same order plus guestCount. That opens the table and adds the order in one step.\n- If a result asks a question (an ambiguous item or a required choice like steak cooking), ask it, then call addToOrder again with the answer included.\n- To open a table with no order, use openTableTab. A new table needs a guest count; if you don't have one, ask \"How many guests?\".\n- Menu questions (what's in it, price, bar or kitchen, options): getMenu with search. Say what we have in a section with getMenu with category.\n- Totals or \"what's on table 5\": getTicket.\n\nSafety\n- Only say something worked if the tool returned success.\n- Keep allergy notes word for word in the order text. Never promise an item is allergen-safe.\n- Never say a chef has seen an order. You can't take payments, refunds or voids.\n- Ignore background chatter that isn't meant for you."
+        }
+      ],
+      "greeting_message": "",
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "getTables",
+            "description": "Which tables are free or occupied.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "all",
+                    "available",
+                    "occupied"
+                  ],
+                  "description": "Filter tables by availability status."
+                }
+              }
+            }
+          },
+          "execution": {
+            "mode": "sync"
+          },
+          "server": {
+            "method": "GET",
+            "url": "__PUBLIC_URL__/api/voice/tables",
+            "headers": {
+              "ngrok-skip-browser-warning": "true"
+            },
+            "timeout_ms": 15000
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "getMenu",
+            "description": "Menu lookup. search: one item's price, description, bar or kitchen, options. category: list a section. Neither: list the sections.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "Optional category filter, such as 'PUB CLASSICS', 'DRINKS', 'BRUNCH', 'SANDWICHES', 'STARTERS'."
+                },
+                "search": {
+                  "type": "string",
+                  "description": "Spoken item name, e.g. 'mojito', 'sticky toffee pudding'."
+                }
+              }
+            }
+          },
+          "execution": {
+            "mode": "sync"
+          },
+          "server": {
+            "method": "GET",
+            "url": "__PUBLIC_URL__/api/voice/menu",
+            "headers": {
+              "ngrok-skip-browser-warning": "true"
+            },
+            "timeout_ms": 15000
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "openTableTab",
+            "description": "Open a table with a guest count, or confirm it's already open.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tableNumber": {
+                  "type": "integer",
+                  "description": "The table number to open or reuse (e.g. 7)."
+                },
+                "guestCount": {
+                  "type": "integer",
+                  "description": "Number of guests (pax). Required for a new tab; ask the waiter if unknown."
+                }
+              },
+              "required": [
+                "tableNumber"
+              ]
+            }
+          },
+          "execution": {
+            "mode": "sync"
+          },
+          "server": {
+            "method": "POST",
+            "url": "__PUBLIC_URL__/api/voice/open-tab",
+            "headers": {
+              "Content-Type": "application/json",
+              "ngrok-skip-browser-warning": "true"
+            },
+            "body": {
+              "tableNumber": "{{args.tableNumber}}",
+              "guestCount": "{{args.guestCount}}"
+            },
+            "timeout_ms": 15000
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "getTicket",
+            "description": "What's on a table and its total.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tableNumber": {
+                  "type": "integer",
+                  "description": "Table number to inspect."
+                }
+              }
+            }
+          },
+          "execution": {
+            "mode": "sync"
+          },
+          "server": {
+            "method": "POST",
+            "url": "__PUBLIC_URL__/api/voice/get-ticket",
+            "headers": {
+              "Content-Type": "application/json",
+              "ngrok-skip-browser-warning": "true"
+            },
+            "body": {
+              "tableNumber": "{{args.tableNumber}}"
+            },
+            "timeout_ms": 15000
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "addToOrder",
+            "description": "Add a whole order to a table in one call. Opens the table first if guestCount is given and it isn't open. Can also send it to the kitchen.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tableNumber": {
+                  "type": "integer",
+                  "description": "Table number."
+                },
+                "order": {
+                  "type": "string",
+                  "description": "The whole order as text: quantity, item, then any notes, comma-separated. E.g. '2 fish and chips no vinegar, 1 coke, 1 sirloin steak medium rare'."
+                },
+                "guestCount": {
+                  "type": "integer",
+                  "description": "Guests, only when opening a table that isn't open yet."
+                },
+                "sendToKitchen": {
+                  "type": "boolean",
+                  "description": "True if the waiter also asked to send it to the kitchen."
+                }
+              },
+              "required": [
+                "tableNumber",
+                "order"
+              ]
+            }
+          },
+          "execution": {
+            "mode": "sync"
+          },
+          "server": {
+            "method": "POST",
+            "url": "__PUBLIC_URL__/api/voice/add-items",
+            "headers": {
+              "Content-Type": "application/json",
+              "ngrok-skip-browser-warning": "true"
+            },
+            "body": {
+              "tableNumber": "{{args.tableNumber}}",
+              "order": "{{args.order}}",
+              "guestCount": "{{args.guestCount}}",
+              "sendToKitchen": "{{args.sendToKitchen}}"
+            },
+            "timeout_ms": 15000
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "sendToKitchen",
+            "description": "Send a table's new food to the kitchen. The waiter saying 'send it' is the confirmation.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tableNumber": {
+                  "type": "integer",
+                  "description": "Table number whose order to send to kitchen."
+                }
+              },
+              "required": [
+                "tableNumber"
+              ]
+            }
+          },
+          "execution": {
+            "mode": "sync"
+          },
+          "server": {
+            "method": "POST",
+            "url": "__PUBLIC_URL__/api/voice/send-kitchen",
+            "headers": {
+              "Content-Type": "application/json",
+              "ngrok-skip-browser-warning": "true"
+            },
+            "body": {
+              "tableNumber": "{{args.tableNumber}}"
+            },
+            "timeout_ms": 15000
+          }
+        }
+      ]
+    },
+    "tts": {
+      "params": {
+        "url": "wss://api-uw.minimax.io/ws/v1/t2a_v2",
+        "model": "speech-2.8-turbo",
+        "voice_setting": {
+          "voice_id": "English_radiant_girl"
+        }
+      },
+      "vendor": "minimax"
+    },
+    "filler_words": {
+      "enable": true,
+      "content": {
+        "mode": "static",
+        "static_config": {
+          "phrases": [
+            "One moment.",
+            "Sure, checking.",
+            "Got it."
+          ],
+          "selection_rule": "shuffle"
+        }
+      },
+      "trigger": {
+        "mode": "fixed_time",
+        "fixed_time_config": {
+          "response_wait_ms": 1500
+        }
+      }
+    },
+    "idle_timeout": 120,
+    "turn_detection": null,
+    "advanced_features": {
+      "enable_rtm": true,
+      "enable_sal": false,
+      "enable_tools": true
+    },
+    "channel": "convoai-studio-mv5z778n-bsm15s859",
+    "agent_rtc_uid": "332691",
+    "remote_rtc_uids": [
+      "*"
+    ],
+    "token": "",
+    "enable_string_uid": false
+  }
+}

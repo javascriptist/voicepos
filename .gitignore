@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+
+# Models and generated data (large; downloaded or produced locally)
+models/
+*.safetensors
+*.gguf
+finetune/adapters/
+
+# Runtime data: timing logs, order DB, eval exports
+*.sqlite
+*.sqlite3
+*.db
+eval/out/
+
+# Never commit audio (ethics: raw audio is not stored)
+*.wav
+*.mp3
+*.m4a
+
+# Secrets and local state
+.env
+.env.*
+.agent-state.json
+*.log
+
+# Legacy third-party POS install (JRE, Derby DB); not our code
+floreantpos-*/
+legacy/api-bridge/build/
+
+.DS_Store

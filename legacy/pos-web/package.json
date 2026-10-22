@@ -1,0 +1,12 @@
+{
+  "name": "crown-copper-pos-web",
+  "version": "1.0.0",
+  "description": "Simple, tactile POS web interface for The Crown & Copper pub powered by Floreant POS API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["pos", "floreantpos", "restaurant", "pub", "kds"],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>Crown & Copper POS</title>
+  <script>
+    // Apply the saved theme before first paint to avoid a flash.
+    try {
+      const saved = localStorage.getItem('pos-theme');
+      if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">C&C</span>
+      <span class="brand-title">Crown & Copper</span>
+    </div>
+
+    <nav class="header-nav" aria-label="Sections">
+      <button class="nav-btn active" data-view="tables">
+        <i data-icon="grid"></i>
+        <span class="nav-text">Tables</span>
+        <span id="open-tabs-count" class="count">0</span>
+      </button>
+      <button class="nav-btn" data-view="register">
+        <i data-icon="receipt"></i>
+        <span class="nav-text">Order</span>
+        <span id="active-table-pill" class="count count-text hidden">Table -</span>
+      </button>
+      <button class="nav-btn" data-view="kds">
+        <i data-icon="chef"></i>
+        <span class="nav-text">Kitchen</span>
+        <span id="kds-pending-count" class="count">0</span>
+      </button>
+      <button class="nav-btn" data-view="tickets">
+        <i data-icon="list"></i>
+        <span class="nav-text">Tabs</span>
+      </button>
+      <button class="nav-btn" data-view="voice">
+        <i data-icon="mic"></i>
+        <span class="nav-text">Sora</span>
+      </button>
+    </nav>
+
+    <div class="header-right">
+      <div id="pos-status-badge" class="status-badge status-checking">
+        <span class="status-dot"></span>
+        <span class="status-label">Connecting</span>
+      </div>
+      <button id="btn-theme" class="btn btn-ghost btn-icon" aria-label="Switch theme" title="Switch theme">
+        <i data-icon="moon"></i>
+      </button>
+      <button id="btn-quick-new-tab" class="btn btn-primary">
+        <i data-icon="plus"></i>
+        <span>Open tab</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="pos-banner" class="alert-banner hidden" role="status">
+    <i data-icon="alert"></i>
+    <span id="banner-message">Connecting to Floreant POS...</span>
+    <button id="banner-action-btn" class="btn btn-secondary btn-sm">Retry</button>
+  </div>
+
+  <main class="app-main">
+
+    <!-- Tables -->
+    <section id="view-tables" class="view-panel active">
+      <div class="view-header">
+        <h1>Tables</h1>
+        <div class="toolbar">
+          <div class="segmented filter-chips" role="tablist" aria-label="Filter tables">
+            <button class="chip active" data-filter="all">All <span id="count-all">0</span></button>
+            <button class="chip" data-filter="free">Free <span id="count-free">0</span></button>
+            <button class="chip" data-filter="occupied">Occupied <span id="count-occupied">0</span></button>
+            <button class="chip" data-filter="dirty">Dirty <span id="count-dirty">0</span></button>
+          </div>
+          <label class="search-box">
+            <i data-icon="search"></i>
+            <input type="search" id="table-search-input" placeholder="Table number" inputmode="numeric" aria-label="Search table number">
+          </label>
+        </div>
+      </div>
+      <div id="tables-grid" class="tables-grid">
+        <div class="loading-spinner">Loading tables...</div>
+      </div>
+    </section>
+
+    <!-- Order -->
+    <section id="view-register" class="view-panel">
+      <div class="register-layout">
+        <div class="catalog-column">
+          <div class="catalog-header">
+            <label class="search-box">
+              <i data-icon="search"></i>
+              <input type="search" id="menu-search-input" placeholder="Search menu" aria-label="Search menu">
+              <button id="btn-clear-search" class="btn-clear hidden" aria-label="Clear search" type="button"><i data-icon="x"></i></button>
+            </label>
+            <div id="category-pills" class="category-pills"></div>
+          </div>
+          <div id="menu-items-grid" class="menu-items-grid"></div>
+        </div>
+
+        <aside class="ticket-panel" aria-label="Current tab">
+          <div class="ticket-header">
+            <div>
+              <span class="eyebrow" id="cart-order-type">Dine in</span>
+              <h2 id="cart-table-title">No table</h2>
+              <span class="muted" id="cart-ticket-meta">Choose a table to start</span>
+            </div>
+            <div class="ticket-header-actions">
+              <button id="btn-switch-table" class="btn btn-ghost btn-sm">Switch</button>
+              <button id="btn-refresh-tab" class="btn btn-ghost btn-icon btn-sm" aria-label="Refresh tab" title="Refresh tab"><i data-icon="refresh"></i></button>
+            </div>
+          </div>
+
+          <div class="ticket-items" id="cart-items-list"></div>
+
+          <div class="quick-notes">
+            <span class="section-label">Quick notes</span>
+            <div class="instruction-chips">
+              <button class="inst-chip" data-inst="No onions">No onions</button>
+              <button class="inst-chip" data-inst="Gluten free">Gluten free</button>
+              <button class="inst-chip inst-chip-alert" data-inst="Nut allergy - Alert Chef">Nut allergy</button>
+              <button class="inst-chip" data-inst="Sauce on side">Sauce on side</button>
+              <button class="inst-chip" data-inst="Well done">Well done</button>
+              <button id="btn-custom-instruction" class="inst-chip inst-chip-custom"><i data-icon="plus"></i>Note</button>
+            </div>
+          </div>
+
+          <dl class="ticket-summary">
+            <div class="summary-line"><dt>Subtotal</dt><dd id="summary-subtotal">£0.00</dd></div>
+            <div class="summary-line"><dt>VAT (20% incl.)</dt><dd id="summary-tax">£0.00</dd></div>
+            <div class="summary-line total-line"><dt>Total</dt><dd id="summary-total">£0.00</dd></div>
+          </dl>
+
+          <div class="ticket-actions">
+            <button id="btn-add-items" class="btn btn-secondary btn-block hidden">Save to tab</button>
+            <button id="btn-send-kitchen" class="btn btn-primary btn-block btn-lg" disabled>
+              <span class="btn-icon"></span>
+              <span class="btn-label">Send to kitchen</span>
+            </button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Kitchen -->
+    <section id="view-kds" class="view-panel">
+      <div class="view-header">
+        <h1>Kitchen</h1>
+        <div class="toolbar">
+          <span class="muted live-note"><span class="status-dot"></span>Updates every 5s</span>
+          <button id="btn-refresh-kds" class="btn btn-secondary btn-sm"><i data-icon="refresh"></i>Refresh</button>
+        </div>
+      </div>
+      <div class="kds-board" id="kds-board">
+        <div class="loading-spinner">Loading kitchen tickets...</div>
+      </div>
+    </section>
+
+    <!-- Tabs -->
+    <section id="view-tickets" class="view-panel">
+      <div class="view-header">
+        <h1>Open tabs</h1>
+        <div class="toolbar">
+          <label class="search-box">
+            <i data-icon="search"></i>
+            <input type="number" id="ticket-lookup-id" placeholder="Ticket number" aria-label="Ticket number">
+          </label>
+          <button id="btn-lookup-ticket" class="btn btn-secondary btn-sm">Find</button>
+        </div>
+      </div>
+      <div class="tickets-split-view">
+        <div class="card">
+          <div class="card-header">
+            <h3>Open now</h3>
+            <button id="btn-refresh-open-tickets" class="btn btn-ghost btn-icon btn-sm" aria-label="Refresh" title="Refresh"><i data-icon="refresh"></i></button>
+          </div>
+          <div id="open-tickets-list" class="tickets-list"></div>
+        </div>
+        <div class="card ticket-detail-card" id="ticket-detail-panel">
+          <div class="empty-state">Select a tab to see its items.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sora -->
+    <section id="view-voice" class="view-panel">
+      <div class="voice-layout">
+        <div class="card conversation">
+          <div class="conversation-header">
+            <div class="agent-identity">
+              <span class="agent-avatar" aria-hidden="true">S</span>
+              <div>
+                <div class="agent-name">Sora</div>
+                <div id="mic-status-pill" class="mic-status-pill">
+                  <span class="mic-dot"></span>
+                  <span id="mic-label">Ready</span>
+                </div>
+              </div>
+            </div>
+            <button type="button" id="btn-toggle-tts" class="btn btn-ghost btn-sm btn-tts" aria-pressed="true" title="Speak Sora's replies aloud">
+              <span class="tts-icon" aria-hidden="true"></span>
+              <span class="tts-label">Voice on</span>
+            </button>
+          </div>
+
+          <div class="transcript-box" id="voice-transcript-box" aria-live="polite">
+            <div class="transcript-msg agent-msg">
+              <div class="msg-bubble">
+                <div class="msg-author">Sora</div>
+                <div class="msg-text">Start a call or type below. Try "Table 5, two fish and chips" or "What's in the mojito?"</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="preset-chips" aria-label="Suggestions">
+            <button class="preset-chip" data-cmd="Which tables are free?">Which tables are free?</button>
+            <button class="preset-chip" data-cmd="Table 7, two fish and chips and a coke">Table 7, two fish and chips and a coke</button>
+            <button class="preset-chip" data-cmd="What's the total?">What's the total?</button>
+            <button class="preset-chip" data-cmd="Send it to the kitchen">Send it to the kitchen</button>
+          </div>
+
+          <div id="call-bar" class="call-bar" data-phase="idle" hidden>
+            <div class="call-info">
+              <span class="call-live-dot" aria-hidden="true"></span>
+              <span class="call-title">On call</span>
+              <span id="call-timer" class="call-timer">00:00</span>
+            </div>
+            <div class="call-actions">
+              <button type="button" id="btn-call-mute" class="btn-call btn-call-mute" aria-pressed="false">
+                <span class="call-btn-icon" aria-hidden="true"></span>
+                <span class="call-btn-label">Mute</span>
+              </button>
+              <button type="button" id="btn-call-end" class="btn-call btn-call-end">
+                <span class="call-btn-icon" aria-hidden="true"><i data-icon="phone-off"></i></span>
+                <span class="call-btn-label">End</span>
+              </button>
+            </div>
+          </div>
+
+          <form id="voice-command-form" class="voice-input-form">
+            <button type="button" id="btn-toggle-mic" class="btn btn-call-start" title="Start a hands-free call with Sora">
+              <i data-icon="phone"></i>
+              <span>Call</span>
+            </button>
+            <input type="text" id="voice-text-input" class="form-input" placeholder="Message Sora" autocomplete="off" aria-label="Message Sora">
+            <button type="submit" id="btn-send-voice-command" class="btn btn-primary btn-icon" aria-label="Send"><i data-icon="send"></i></button>
+          </form>
+        </div>
+
+        <div class="voice-side">
+          <div class="card">
+            <div class="card-header">
+              <h3>Last action</h3>
+              <span id="last-tool-badge" class="tool-tag">None</span>
+            </div>
+            <pre id="last-tool-json" class="json-preview">Tool calls Sora makes on the POS appear here.</pre>
+          </div>
+
+          <details class="card headset-card">
+            <summary class="card-header">
+              <h3>Headset agent</h3>
+              <span class="muted" id="agent-status-label">Checking</span>
+            </summary>
+            <div class="headset-body">
+              <p class="muted">The Agora agent staff talk to on headsets. Reconnect restarts it with the current settings.</p>
+              <dl class="cred-list">
+                <div><dt>Channel</dt><dd>convoai-studio-mv5z778n-bsm15s859</dd></div>
+                <div><dt>Agent</dt><dd id="active-agent-id">-</dd></div>
+              </dl>
+              <button id="btn-rejoin-agora" class="btn btn-secondary btn-sm"><i data-icon="refresh"></i>Reconnect</button>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Open tab -->
+  <div id="modal-open-tab" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-open-tab-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-open-tab-title">Open tab</h3>
+        <button class="btn btn-ghost btn-icon" data-close="modal-open-tab" aria-label="Close"><i data-icon="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="input-order-type">Order type</label>
+          <select id="input-order-type" class="form-select">
+            <option value="1">Dine in</option>
+            <option value="2">Takeaway</option>
+            <option value="3">Bar tab</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <span class="label">Guests</span>
+          <div class="stepper stepper-lg">
+            <button id="btn-guest-minus" class="stepper-btn" aria-label="Fewer guests">−</button>
+            <span id="guest-count-val" class="stepper-val">2</span>
+            <button id="btn-guest-plus" class="stepper-btn" aria-label="More guests">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="modal-open-tab">Cancel</button>
+        <button id="btn-confirm-open-tab" class="btn btn-primary">Open tab</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Item options -->
+  <div id="modal-item-customize" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-item-name">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div>
+          <h3 id="modal-item-name">Item</h3>
+          <span id="modal-item-price" class="muted">£0.00</span>
+        </div>
+        <button class="btn btn-ghost btn-icon" data-close="modal-item-customize" aria-label="Close"><i data-icon="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" id="seat-assignment-group">
+          <span class="label">Seat</span>
+          <div class="segmented seat-selector" id="seat-pills" role="group" aria-label="Seat"></div>
+        </div>
+        <div id="modifier-groups-container" class="modifier-groups-container"></div>
+        <div class="form-group">
+          <label for="modal-inst-input">Notes for the kitchen</label>
+          <div class="custom-inst-input-row">
+            <input type="text" id="modal-inst-input" class="form-input" placeholder="e.g. no onions, dressing on the side">
+            <button id="btn-modal-add-inst" class="btn btn-secondary">Add</button>
+          </div>
+          <div id="modal-inst-tags" class="inst-tags-container"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="stepper">
+          <button id="btn-modal-qty-minus" class="stepper-btn" aria-label="Decrease quantity">−</button>
+          <span id="modal-qty-val" class="stepper-val">1</span>
+          <button id="btn-modal-qty-plus" class="stepper-btn" aria-label="Increase quantity">+</button>
+        </div>
+        <div class="modal-footer-actions">
+          <button class="btn btn-ghost" data-close="modal-item-customize">Cancel</button>
+          <button id="btn-modal-add-to-order" class="btn btn-primary">Add · <span id="modal-item-total">£0.00</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom note -->
+  <div id="modal-custom-inst" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-custom-inst-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-custom-inst-title">Kitchen note</h3>
+        <button class="btn btn-ghost btn-icon" data-close="modal-custom-inst" aria-label="Close"><i data-icon="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="input-custom-instruction">Note or allergy</label>
+          <input type="text" id="input-custom-instruction" class="form-input" placeholder="e.g. severe nut allergy, tell the chef" maxlength="200">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="modal-custom-inst">Cancel</button>
+        <button id="btn-confirm-custom-inst" class="btn btn-primary">Add note</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
