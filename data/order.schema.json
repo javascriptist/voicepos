@@ -1,0 +1,103 @@
+{
+  "$defs": {
+    "Intent": {
+      "enum": [
+        "add_items",
+        "remove_item",
+        "modify_item",
+        "set_table",
+        "send_order",
+        "cancel",
+        "unknown"
+      ],
+      "title": "Intent",
+      "type": "string"
+    },
+    "OrderItem": {
+      "additionalProperties": false,
+      "properties": {
+        "menu_id": {
+          "title": "Menu Id",
+          "type": "string"
+        },
+        "qty": {
+          "default": 1,
+          "maximum": 30,
+          "minimum": 1,
+          "title": "Qty",
+          "type": "integer"
+        },
+        "size": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Size"
+        },
+        "modifiers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Modifiers",
+          "type": "array"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Notes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "menu_id"
+      ],
+      "title": "OrderItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "table": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Table"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/OrderItem"
+      },
+      "title": "Items",
+      "type": "array"
+    },
+    "intent": {
+      "$ref": "#/$defs/Intent"
+    },
+    "confidence": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Confidence",
+      "type": "number"
+    }
+  },
+  "required": [
+    "intent",
+    "confidence"
+  ],
+  "title": "Order",
+  "type": "object"
+}

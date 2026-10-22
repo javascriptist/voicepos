@@ -1,0 +1,1321 @@
+{
+  "version": 1,
+  "currency": "GBP",
+  "venue": "The Crown & Copper (mock)",
+  "categories": [
+    {
+      "id": "brunch",
+      "name": "Brunch"
+    },
+    {
+      "id": "starters",
+      "name": "Starters"
+    },
+    {
+      "id": "pub_classics",
+      "name": "Pub Classics"
+    },
+    {
+      "id": "sandwiches",
+      "name": "Sandwiches"
+    },
+    {
+      "id": "sides",
+      "name": "Sides"
+    },
+    {
+      "id": "children",
+      "name": "Children"
+    },
+    {
+      "id": "puddings",
+      "name": "Puddings"
+    },
+    {
+      "id": "soft_and_hot_drinks",
+      "name": "Soft & Hot Drinks"
+    },
+    {
+      "id": "beer_and_cider",
+      "name": "Beer & Cider"
+    },
+    {
+      "id": "wine",
+      "name": "Wine"
+    }
+  ],
+  "modifier_groups": [
+    {
+      "id": "milk",
+      "name": "Milk",
+      "max": 1,
+      "default": "whole milk",
+      "options": [
+        {
+          "name": "whole milk",
+          "price": 0
+        },
+        {
+          "name": "semi skimmed milk",
+          "price": 0
+        },
+        {
+          "name": "oat milk",
+          "price": 0.4
+        },
+        {
+          "name": "soy milk",
+          "price": 0.4
+        },
+        {
+          "name": "no milk",
+          "price": 0
+        }
+      ]
+    },
+    {
+      "id": "eggs",
+      "name": "Eggs",
+      "max": 1,
+      "default": "fried eggs",
+      "options": [
+        {
+          "name": "fried eggs",
+          "price": 0
+        },
+        {
+          "name": "poached eggs",
+          "price": 0
+        },
+        {
+          "name": "scrambled eggs",
+          "price": 0
+        }
+      ]
+    },
+    {
+      "id": "peas",
+      "name": "Peas",
+      "max": 1,
+      "default": "mushy peas",
+      "options": [
+        {
+          "name": "mushy peas",
+          "price": 0
+        },
+        {
+          "name": "garden peas",
+          "price": 0
+        },
+        {
+          "name": "no peas",
+          "price": 0
+        }
+      ]
+    },
+    {
+      "id": "sauce",
+      "name": "Sauce",
+      "max": 2,
+      "default": null,
+      "options": [
+        {
+          "name": "ketchup",
+          "price": 0
+        },
+        {
+          "name": "brown sauce",
+          "price": 0
+        },
+        {
+          "name": "mayonnaise",
+          "price": 0
+        },
+        {
+          "name": "tartare sauce",
+          "price": 0
+        },
+        {
+          "name": "curry sauce",
+          "price": 1.0
+        },
+        {
+          "name": "gravy",
+          "price": 1.0
+        }
+      ]
+    },
+    {
+      "id": "burger_extras",
+      "name": "Extras",
+      "max": 3,
+      "default": null,
+      "options": [
+        {
+          "name": "extra cheese",
+          "price": 1.0
+        },
+        {
+          "name": "bacon",
+          "price": 1.5
+        },
+        {
+          "name": "fried egg",
+          "price": 1.0
+        }
+      ]
+    },
+    {
+      "id": "burger_remove",
+      "name": "Leave out",
+      "max": 4,
+      "default": null,
+      "options": [
+        {
+          "name": "no onions",
+          "price": 0
+        },
+        {
+          "name": "no tomato",
+          "price": 0
+        },
+        {
+          "name": "no lettuce",
+          "price": 0
+        },
+        {
+          "name": "no pickles",
+          "price": 0
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "beans_on_toast",
+      "name": "Beans on Toast",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 6.25,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "brunch_sharing_plate",
+      "name": "Brunch Sharing Plate",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 16.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "double_up_full_english",
+      "name": "Double-Up Full English",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 13.95,
+      "aliases": [],
+      "modifier_groups": [
+        "eggs"
+      ]
+    },
+    {
+      "id": "eggs_benedict",
+      "name": "Eggs Benedict",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 9.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "full_english_breakfast",
+      "name": "Full English Breakfast",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 11.95,
+      "aliases": [
+        "full english",
+        "fry up"
+      ],
+      "modifier_groups": [
+        "eggs"
+      ]
+    },
+    {
+      "id": "hash_browns",
+      "name": "Hash Browns",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 2.5,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "porridge_with_honey",
+      "name": "Porridge with Honey",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 5.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "sausage_and_egg_bap",
+      "name": "Sausage & Egg Bap",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 6.5,
+      "aliases": [],
+      "modifier_groups": [
+        "eggs",
+        "sauce"
+      ]
+    },
+    {
+      "id": "scottish_oat_porridge",
+      "name": "Scottish Oat Porridge",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 5.5,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "smoked_salmon_bagel",
+      "name": "Smoked Salmon Bagel",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 9.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "sourdough_toast_and_marmalade",
+      "name": "Sourdough Toast & Marmalade",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 3.25,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "sunday_brunch_plate",
+      "name": "Sunday Brunch Plate",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 12.95,
+      "aliases": [],
+      "modifier_groups": [
+        "eggs"
+      ]
+    },
+    {
+      "id": "vegetarian_full_english",
+      "name": "Vegetarian Full English",
+      "category": "brunch",
+      "station": "kitchen",
+      "price": 11.5,
+      "aliases": [],
+      "modifier_groups": [
+        "eggs"
+      ]
+    },
+    {
+      "id": "mozzarella_and_tomato_arancini",
+      "name": "Mozzarella & Tomato Arancini",
+      "category": "starters",
+      "station": "kitchen",
+      "price": 7.25,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "prawn_cocktail",
+      "name": "Prawn Cocktail",
+      "category": "starters",
+      "station": "kitchen",
+      "price": 8.25,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "sausage_roll",
+      "name": "Sausage Roll",
+      "category": "starters",
+      "station": "kitchen",
+      "price": 5.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "bangers_and_mash",
+      "name": "Bangers & Mash",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 13.95,
+      "aliases": [
+        "bangers",
+        "sausage and mash"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "battered_sausage_and_chips",
+      "name": "Battered Sausage & Chips",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 11.95,
+      "aliases": [],
+      "modifier_groups": [
+        "sauce"
+      ]
+    },
+    {
+      "id": "beef_and_ale_stew",
+      "name": "Beef & Ale Stew",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 15.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "beef_burger",
+      "name": "Beef Burger",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 14.95,
+      "aliases": [
+        "burger",
+        "cheeseburger"
+      ],
+      "modifier_groups": [
+        "sauce",
+        "burger_extras",
+        "burger_remove"
+      ]
+    },
+    {
+      "id": "beer_battered_cod",
+      "name": "Beer-Battered Cod",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 16.95,
+      "aliases": [
+        "cod"
+      ],
+      "modifier_groups": [
+        "peas",
+        "sauce"
+      ]
+    },
+    {
+      "id": "chargrilled_chicken_salad",
+      "name": "Chargrilled Chicken Salad",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 11.5,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "cheese_and_chutney_toastie",
+      "name": "Cheese & Chutney Toastie",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 8.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "chicken_and_ham_pie",
+      "name": "Chicken & Ham Pie",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 13.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "chicken_and_mushroom_pie",
+      "name": "Chicken & Mushroom Pie",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 13.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "chicken_burger",
+      "name": "Chicken Burger",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 13.95,
+      "aliases": [],
+      "modifier_groups": [
+        "sauce",
+        "burger_extras",
+        "burger_remove"
+      ]
+    },
+    {
+      "id": "chicken_schnitzel",
+      "name": "Chicken Schnitzel",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 14.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "cumberland_sausage_plate",
+      "name": "Cumberland Sausage Plate",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 12.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "fish_and_chips",
+      "name": "Fish & Chips",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 15.95,
+      "aliases": [
+        "fish n chips",
+        "fish and chip"
+      ],
+      "modifier_groups": [
+        "peas",
+        "sauce"
+      ]
+    },
+    {
+      "id": "gammon_steak_and_eggs",
+      "name": "Gammon Steak & Eggs",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 15.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "hunters_chicken",
+      "name": "Hunter's Chicken",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 15.5,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "macaroni_cheese",
+      "name": "Macaroni Cheese",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 12.5,
+      "aliases": [
+        "mac and cheese"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "mushroom_and_halloumi_burger",
+      "name": "Mushroom & Halloumi Burger",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 13.5,
+      "aliases": [],
+      "modifier_groups": [
+        "sauce",
+        "burger_extras",
+        "burger_remove"
+      ]
+    },
+    {
+      "id": "ploughmans_lunch",
+      "name": "Ploughman's Lunch",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 13.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "pork_and_apple_sausages",
+      "name": "Pork & Apple Sausages",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 13.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "roast_chicken_dinner",
+      "name": "Roast Chicken Dinner",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 15.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "scampi_and_chips",
+      "name": "Scampi & Chips",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 15.95,
+      "aliases": [
+        "scampi"
+      ],
+      "modifier_groups": [
+        "peas",
+        "sauce"
+      ]
+    },
+    {
+      "id": "shepherds_pie",
+      "name": "Shepherd's Pie",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 13.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "steak_and_ale_pie",
+      "name": "Steak & Ale Pie",
+      "category": "pub_classics",
+      "station": "kitchen",
+      "price": 14.95,
+      "aliases": [
+        "steak pie"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "chicken_and_bacon_club_sandwich",
+      "name": "Chicken & Bacon Club Sandwich",
+      "category": "sandwiches",
+      "station": "kitchen",
+      "price": 10.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "roast_turkey_and_cranberry_sandwich",
+      "name": "Roast Turkey & Cranberry Sandwich",
+      "category": "sandwiches",
+      "station": "kitchen",
+      "price": 10.5,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "cheesy_chips",
+      "name": "Cheesy Chips",
+      "category": "sides",
+      "station": "kitchen",
+      "price": 5.25,
+      "aliases": [],
+      "modifier_groups": [
+        "sauce"
+      ]
+    },
+    {
+      "id": "garlic_bread",
+      "name": "Garlic Bread",
+      "category": "sides",
+      "station": "kitchen",
+      "price": 4.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "halloumi_fries",
+      "name": "Halloumi Fries",
+      "category": "sides",
+      "station": "kitchen",
+      "price": 7.5,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "onion_rings",
+      "name": "Onion Rings",
+      "category": "sides",
+      "station": "kitchen",
+      "price": 4.25,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "side_salad",
+      "name": "Side Salad",
+      "category": "sides",
+      "station": "kitchen",
+      "price": 3.95,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "skin_on_chips",
+      "name": "Skin-on Chips",
+      "category": "sides",
+      "station": "kitchen",
+      "price": 4.25,
+      "aliases": [
+        "chips",
+        "fries"
+      ],
+      "modifier_groups": [
+        "sauce"
+      ]
+    },
+    {
+      "id": "kids_chicken_goujons",
+      "name": "Kids Chicken Goujons",
+      "category": "children",
+      "station": "kitchen",
+      "price": 7.25,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "kids_fish_and_chips",
+      "name": "Kids Fish & Chips",
+      "category": "children",
+      "station": "kitchen",
+      "price": 7.25,
+      "aliases": [],
+      "modifier_groups": [
+        "peas",
+        "sauce"
+      ]
+    },
+    {
+      "id": "kids_sausage_and_mash",
+      "name": "Kids Sausage & Mash",
+      "category": "children",
+      "station": "kitchen",
+      "price": 7.25,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "mini_fish_fingers_and_chips",
+      "name": "Mini Fish Fingers & Chips",
+      "category": "children",
+      "station": "kitchen",
+      "price": 6.95,
+      "aliases": [
+        "fish fingers"
+      ],
+      "modifier_groups": [
+        "sauce"
+      ]
+    },
+    {
+      "id": "apple_crumble_and_custard",
+      "name": "Apple Crumble & Custard",
+      "category": "puddings",
+      "station": "kitchen",
+      "price": 6.95,
+      "aliases": [
+        "apple crumble",
+        "crumble"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "greek_yoghurt_and_honey",
+      "name": "Greek Yoghurt & Honey",
+      "category": "puddings",
+      "station": "kitchen",
+      "price": 5.25,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "sticky_toffee_pudding",
+      "name": "Sticky Toffee Pudding",
+      "category": "puddings",
+      "station": "kitchen",
+      "price": 6.75,
+      "aliases": [
+        "sticky toffee",
+        "stp"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "americano",
+      "name": "Americano",
+      "category": "soft_and_hot_drinks",
+      "station": "bar",
+      "price": 3.2,
+      "aliases": [
+        "coffee",
+        "black coffee"
+      ],
+      "modifier_groups": [
+        "milk"
+      ]
+    },
+    {
+      "id": "apple_and_blackcurrant_juice",
+      "name": "Apple & Blackcurrant Juice",
+      "category": "soft_and_hot_drinks",
+      "station": "bar",
+      "price": 3.25,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "chocolate_milkshake",
+      "name": "Chocolate Milkshake",
+      "category": "soft_and_hot_drinks",
+      "station": "bar",
+      "price": 4.25,
+      "aliases": [
+        "milkshake"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "cola",
+      "name": "Cola",
+      "category": "soft_and_hot_drinks",
+      "station": "bar",
+      "price": 3.25,
+      "aliases": [
+        "coke",
+        "coca cola"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "decaf_tea",
+      "name": "Decaf Tea",
+      "category": "soft_and_hot_drinks",
+      "station": "bar",
+      "price": 2.8,
+      "aliases": [],
+      "modifier_groups": [
+        "milk"
+      ]
+    },
+    {
+      "id": "english_breakfast_tea",
+      "name": "English Breakfast Tea",
+      "category": "soft_and_hot_drinks",
+      "station": "bar",
+      "price": 2.8,
+      "aliases": [
+        "tea",
+        "cup of tea"
+      ],
+      "modifier_groups": [
+        "milk"
+      ]
+    },
+    {
+      "id": "flat_white",
+      "name": "Flat White",
+      "category": "soft_and_hot_drinks",
+      "station": "bar",
+      "price": 3.4,
+      "aliases": [
+        "flattie"
+      ],
+      "modifier_groups": [
+        "milk"
+      ]
+    },
+    {
+      "id": "ginger_beer",
+      "name": "Ginger Beer",
+      "category": "soft_and_hot_drinks",
+      "station": "bar",
+      "price": 3.5,
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "homemade_lemonade",
+      "name": "Homemade Lemonade",
+      "category": "soft_and_hot_drinks",
+      "station": "bar",
+      "price": 3.25,
+      "aliases": [
+        "lemonade"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "apple_cider",
+      "name": "Apple Cider",
+      "category": "beer_and_cider",
+      "station": "bar",
+      "default_size": "pint",
+      "sizes": [
+        {
+          "id": "half",
+          "name": "half pint",
+          "price": 3
+        },
+        {
+          "id": "pint",
+          "name": "pint",
+          "price": 5.25
+        },
+        {
+          "id": "two_pints",
+          "name": "two pints",
+          "price": 10.0
+        }
+      ],
+      "aliases": [
+        "cider"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "cask_pale_ale",
+      "name": "Cask Pale Ale",
+      "category": "beer_and_cider",
+      "station": "bar",
+      "default_size": "pint",
+      "sizes": [
+        {
+          "id": "half",
+          "name": "half pint",
+          "price": 3.0
+        },
+        {
+          "id": "pint",
+          "name": "pint",
+          "price": 5.5
+        },
+        {
+          "id": "two_pints",
+          "name": "two pints",
+          "price": 10.5
+        }
+      ],
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "copper_house_lager",
+      "name": "Copper House Lager",
+      "category": "beer_and_cider",
+      "station": "bar",
+      "default_size": "pint",
+      "sizes": [
+        {
+          "id": "half",
+          "name": "half pint",
+          "price": 3.25
+        },
+        {
+          "id": "pint",
+          "name": "pint",
+          "price": 5.5
+        },
+        {
+          "id": "two_pints",
+          "name": "two pints",
+          "price": 10.5
+        }
+      ],
+      "aliases": [
+        "lager"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "copper_house_pale_ale",
+      "name": "Copper House Pale Ale",
+      "category": "beer_and_cider",
+      "station": "bar",
+      "default_size": "pint",
+      "sizes": [
+        {
+          "id": "half",
+          "name": "half pint",
+          "price": 3.25
+        },
+        {
+          "id": "pint",
+          "name": "pint",
+          "price": 5.5
+        },
+        {
+          "id": "two_pints",
+          "name": "two pints",
+          "price": 10.5
+        }
+      ],
+      "aliases": [
+        "pale ale"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "london_porter",
+      "name": "London Porter",
+      "category": "beer_and_cider",
+      "station": "bar",
+      "default_size": "pint",
+      "sizes": [
+        {
+          "id": "half",
+          "name": "half pint",
+          "price": 3.25
+        },
+        {
+          "id": "pint",
+          "name": "pint",
+          "price": 5.5
+        },
+        {
+          "id": "two_pints",
+          "name": "two pints",
+          "price": 10.5
+        }
+      ],
+      "aliases": [
+        "porter"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "session_ipa",
+      "name": "Session IPA",
+      "category": "beer_and_cider",
+      "station": "bar",
+      "default_size": "pint",
+      "sizes": [
+        {
+          "id": "half",
+          "name": "half pint",
+          "price": 3.25
+        },
+        {
+          "id": "pint",
+          "name": "pint",
+          "price": 5.95
+        },
+        {
+          "id": "two_pints",
+          "name": "two pints",
+          "price": 11.5
+        }
+      ],
+      "aliases": [
+        "ipa"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "yorkshire_bitter",
+      "name": "Yorkshire Bitter",
+      "category": "beer_and_cider",
+      "station": "bar",
+      "default_size": "pint",
+      "sizes": [
+        {
+          "id": "half",
+          "name": "half pint",
+          "price": 3
+        },
+        {
+          "id": "pint",
+          "name": "pint",
+          "price": 5.25
+        },
+        {
+          "id": "two_pints",
+          "name": "two pints",
+          "price": 10.0
+        }
+      ],
+      "aliases": [
+        "bitter"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "cabernet_sauvignon",
+      "name": "Cabernet Sauvignon",
+      "category": "wine",
+      "station": "bar",
+      "default_size": "175ml",
+      "sizes": [
+        {
+          "id": "175ml",
+          "name": "175ml glass",
+          "price": 6.5
+        },
+        {
+          "id": "250ml",
+          "name": "250ml glass",
+          "price": 8.75
+        },
+        {
+          "id": "bottle",
+          "name": "bottle",
+          "price": 25
+        }
+      ],
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "chardonnay",
+      "name": "Chardonnay",
+      "category": "wine",
+      "station": "bar",
+      "default_size": "175ml",
+      "sizes": [
+        {
+          "id": "175ml",
+          "name": "175ml glass",
+          "price": 6.5
+        },
+        {
+          "id": "250ml",
+          "name": "250ml glass",
+          "price": 8.75
+        },
+        {
+          "id": "bottle",
+          "name": "bottle",
+          "price": 25
+        }
+      ],
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "house_red_wine",
+      "name": "House Red Wine",
+      "category": "wine",
+      "station": "bar",
+      "default_size": "175ml",
+      "sizes": [
+        {
+          "id": "175ml",
+          "name": "175ml glass",
+          "price": 6.25
+        },
+        {
+          "id": "250ml",
+          "name": "250ml glass",
+          "price": 8.5
+        },
+        {
+          "id": "bottle",
+          "name": "bottle",
+          "price": 23.95
+        }
+      ],
+      "aliases": [
+        "red wine",
+        "house red",
+        "glass of red"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "house_white_wine",
+      "name": "House White Wine",
+      "category": "wine",
+      "station": "bar",
+      "default_size": "175ml",
+      "sizes": [
+        {
+          "id": "175ml",
+          "name": "175ml glass",
+          "price": 6.25
+        },
+        {
+          "id": "250ml",
+          "name": "250ml glass",
+          "price": 8.5
+        },
+        {
+          "id": "bottle",
+          "name": "bottle",
+          "price": 24.95
+        }
+      ],
+      "aliases": [
+        "white wine",
+        "house white",
+        "glass of white"
+      ],
+      "modifier_groups": []
+    },
+    {
+      "id": "malbec",
+      "name": "Malbec",
+      "category": "wine",
+      "station": "bar",
+      "default_size": "175ml",
+      "sizes": [
+        {
+          "id": "175ml",
+          "name": "175ml glass",
+          "price": 6.75
+        },
+        {
+          "id": "250ml",
+          "name": "250ml glass",
+          "price": 9
+        },
+        {
+          "id": "bottle",
+          "name": "bottle",
+          "price": 26
+        }
+      ],
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "merlot",
+      "name": "Merlot",
+      "category": "wine",
+      "station": "bar",
+      "default_size": "175ml",
+      "sizes": [
+        {
+          "id": "175ml",
+          "name": "175ml glass",
+          "price": 6.25
+        },
+        {
+          "id": "250ml",
+          "name": "250ml glass",
+          "price": 8.5
+        },
+        {
+          "id": "bottle",
+          "name": "bottle",
+          "price": 24
+        }
+      ],
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "pinot_grigio",
+      "name": "Pinot Grigio",
+      "category": "wine",
+      "station": "bar",
+      "default_size": "175ml",
+      "sizes": [
+        {
+          "id": "175ml",
+          "name": "175ml glass",
+          "price": 6.25
+        },
+        {
+          "id": "250ml",
+          "name": "250ml glass",
+          "price": 8.5
+        },
+        {
+          "id": "bottle",
+          "name": "bottle",
+          "price": 24
+        }
+      ],
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "rose",
+      "name": "Rosé",
+      "category": "wine",
+      "station": "bar",
+      "default_size": "175ml",
+      "sizes": [
+        {
+          "id": "175ml",
+          "name": "175ml glass",
+          "price": 6.25
+        },
+        {
+          "id": "250ml",
+          "name": "250ml glass",
+          "price": 8.5
+        },
+        {
+          "id": "bottle",
+          "name": "bottle",
+          "price": 24
+        }
+      ],
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "sauvignon_blanc",
+      "name": "Sauvignon Blanc",
+      "category": "wine",
+      "station": "bar",
+      "default_size": "175ml",
+      "sizes": [
+        {
+          "id": "175ml",
+          "name": "175ml glass",
+          "price": 6.5
+        },
+        {
+          "id": "250ml",
+          "name": "250ml glass",
+          "price": 8.75
+        },
+        {
+          "id": "bottle",
+          "name": "bottle",
+          "price": 25
+        }
+      ],
+      "aliases": [],
+      "modifier_groups": []
+    },
+    {
+      "id": "shiraz",
+      "name": "Shiraz",
+      "category": "wine",
+      "station": "bar",
+      "default_size": "175ml",
+      "sizes": [
+        {
+          "id": "175ml",
+          "name": "175ml glass",
+          "price": 6.5
+        },
+        {
+          "id": "250ml",
+          "name": "250ml glass",
+          "price": 8.75
+        },
+        {
+          "id": "bottle",
+          "name": "bottle",
+          "price": 25
+        }
+      ],
+      "aliases": [],
+      "modifier_groups": []
+    }
+  ]
+}
